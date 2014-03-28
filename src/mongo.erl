@@ -377,10 +377,10 @@ auth (Username, Password) ->
 		catch error:{bad_command, _} -> false end.
 
 -spec pw_key (nonce(), username(), password()) -> bson:utf8().
-pw_key (Nonce, Username, Password) -> bson:utf8 (binary_to_hexstr (crypto:md5 ([Nonce, Username, pw_hash (Username, Password)]))).
+pw_key (Nonce, Username, Password) -> bson:utf8 (binary_to_hexstr (erlang:md5 ([Nonce, Username, pw_hash (Username, Password)]))).
 
 -spec pw_hash (username(), password()) -> bson:utf8().
-pw_hash (Username, Password) -> bson:utf8 (binary_to_hexstr (crypto:md5 ([Username, <<":mongo:">>, Password]))).
+pw_hash (Username, Password) -> bson:utf8 (binary_to_hexstr (erlang:md5 ([Username, <<":mongo:">>, Password]))).
 
 -spec binary_to_hexstr (binary()) -> string().
 binary_to_hexstr (Bin) ->
